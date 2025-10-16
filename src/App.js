@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { TrendingUp, TrendingDown, DollarSign, Eye, Target, Bell } from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
+import { TrendingUp, TrendingDown, DollarSign, Eye, Target, Bell, Search } from 'lucide-react';
 
 const Dashboard = () => {
   const [activeNav, setActiveNav] = useState('Home');
@@ -26,102 +26,99 @@ const Dashboard = () => {
 
   const statsCards = [
     {
-      title: 'Total Income',
+      title: 'Total income',
       value: '$23,602',
-      change: '+3%',
+      change: '3%',
       trend: 'up',
       icon: DollarSign,
-      color: '#f3e8ff',
-      iconColor: '#9333ea'
     },
     {
       title: 'Website visitors',
       value: '7,517',
-      change: '+2%',
+      change: '2%',
       trend: 'up',
       icon: Eye,
-      color: '#fce7f3',
-      iconColor: '#db2777'
     },
     {
       title: 'Total Outcome',
       value: '$5,319',
-      change: '+5%',
-      trend: 'down',
+      change: '5%',
+      trend: 'up',
       icon: Target,
-      color: '#f3e8ff',
-      iconColor: '#9333ea'
     }
   ];
 
   const progressData = [
-    { name: 'Sales analytics dashboard', progress: 40, color: '#3b82f6' },
+    { name: 'Sales analytics dashboard', progress: 40, color: '#6366f1' },
     { name: 'Travel landing page', progress: 35, color: '#a855f7' },
-    { name: 'Saas brand guideline', progress: 70, color: '#f472b6' },
+    { name: 'Saas brand guideline', progress: 70, color: '#ec4899' },
     { name: 'Point of sales mobile app', progress: 85, color: '#9ca3af' }
   ];
 
   const styles = {
     container: {
       minHeight: '100vh',
-      backgroundColor: '#f9fafb',
+      backgroundColor: '#f5f5f7',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
     },
     header: {
-      background: 'linear-gradient(135deg, #581c87 0%, #7c3aed 50%, #581c87 100%)',
+      background: 'linear-gradient(135deg, #2d1b4e 0%, #3d2463 50%, #2d1b4e 100%)',
       color: 'white',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      paddingBottom: '3rem'
     },
     headerOverlay: {
       position: 'absolute',
       inset: 0,
-      background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.5) 0%, transparent 100%)',
-      clipPath: 'polygon(0 0, 100% 0, 100% 60%, 0 100%)'
+      background: 'linear-gradient(135deg, rgba(61, 36, 99, 0.6) 0%, transparent 100%)',
+      clipPath: 'polygon(0 0, 100% 0, 100% 70%, 0 100%)'
     },
     headerContent: {
       position: 'relative',
       zIndex: 10,
-      padding: '1rem 2rem'
+      padding: '1.5rem 2.5rem'
     },
     nav: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginBottom: '4rem'
+      marginBottom: '3.5rem'
     },
     navLeft: {
       display: 'flex',
       alignItems: 'center',
-      gap: '2rem'
+      gap: '3rem'
     },
     logo: {
-      width: '40px',
-      height: '40px',
-      background: 'linear-gradient(135deg, #a78bfa 0%, #ec4899 100%)',
-      borderRadius: '0.5rem',
+      width: '42px',
+      height: '42px',
+      background: 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',
+      borderRadius: '8px',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      position: 'relative'
     },
     logoInner: {
-      width: '24px',
-      height: '24px',
-      backgroundColor: 'rgba(255, 255, 255, 0.3)',
-      borderRadius: '0.25rem',
+      width: '20px',
+      height: '20px',
+      backgroundColor: 'rgba(255, 255, 255, 0.35)',
+      borderRadius: '3px',
       transform: 'rotate(45deg)'
     },
     navItems: {
       display: 'flex',
-      gap: '1.5rem'
+      gap: '0.5rem'
     },
     navButton: {
-      padding: '0.5rem 1rem',
-      borderRadius: '0.5rem',
+      padding: '0.5rem 1.25rem',
+      borderRadius: '8px',
       border: 'none',
       cursor: 'pointer',
-      transition: 'all 0.3s',
-      fontSize: '0.95rem'
+      transition: 'all 0.2s',
+      fontSize: '0.95rem',
+      fontWeight: '400'
     },
     navButtonActive: {
       backgroundColor: 'transparent',
@@ -130,21 +127,32 @@ const Dashboard = () => {
     },
     navButtonInactive: {
       backgroundColor: 'transparent',
-      color: '#d8b4fe'
+      color: 'rgba(255, 255, 255, 0.5)'
     },
     navRight: {
       display: 'flex',
       alignItems: 'center',
       gap: '1rem'
     },
+    searchWrapper: {
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'center'
+    },
+    searchIcon: {
+      position: 'absolute',
+      left: '12px',
+      pointerEvents: 'none'
+    },
     searchInput: {
-      backgroundColor: 'rgba(88, 28, 135, 0.5)',
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
       color: 'white',
       border: 'none',
-      padding: '0.5rem 1rem',
-      borderRadius: '0.5rem',
-      width: '256px',
-      outline: 'none'
+      padding: '0.6rem 1rem 0.6rem 2.5rem',
+      borderRadius: '8px',
+      width: '200px',
+      outline: 'none',
+      fontSize: '0.9rem'
     },
     bellButton: {
       position: 'relative',
@@ -152,141 +160,149 @@ const Dashboard = () => {
       backgroundColor: 'transparent',
       border: 'none',
       cursor: 'pointer',
-      borderRadius: '0.5rem'
+      borderRadius: '8px'
     },
     bellDot: {
       position: 'absolute',
-      top: '4px',
-      right: '4px',
-      width: '8px',
-      height: '8px',
+      top: '6px',
+      right: '6px',
+      width: '7px',
+      height: '7px',
       backgroundColor: '#ef4444',
       borderRadius: '50%'
     },
     avatar: {
-      width: '40px',
-      height: '40px',
+      width: '38px',
+      height: '38px',
       background: 'linear-gradient(135deg, #ec4899 0%, #a855f7 100%)',
-      borderRadius: '50%'
+      borderRadius: '50%',
+      border: '2px solid rgba(255, 255, 255, 0.2)'
     },
     welcome: {
-      paddingBottom: '2rem'
+      paddingBottom: '0'
     },
     welcomeTitle: {
-      fontSize: '1.875rem',
-      fontWeight: 'bold',
-      marginBottom: '0.5rem'
+      fontSize: '2rem',
+      fontWeight: '600',
+      marginBottom: '0.5rem',
+      letterSpacing: '-0.02em'
     },
     welcomeSubtitle: {
-      color: '#d8b4fe'
+      color: 'rgba(255, 255, 255, 0.6)',
+      fontSize: '0.95rem'
     },
     main: {
-      padding: '0 2rem',
-      marginTop: '-2rem',
+      padding: '0 2.5rem',
+      marginTop: '-2.5rem',
       position: 'relative',
       zIndex: 20
     },
-    grid: {
-      display: 'grid',
-      gridTemplateColumns: '1fr',
-      gap: '1.5rem'
-    },
-    gridLg: {
-      '@media (min-width: 1024px)': {
-        gridTemplateColumns: '2fr 1fr'
-      }
-    },
     card: {
       backgroundColor: 'white',
-      borderRadius: '1rem',
-      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-      padding: '1.5rem',
+      borderRadius: '16px',
+      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+      padding: '1.75rem',
       marginBottom: '1.5rem'
     },
     cardHeader: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: '1.5rem'
+      marginBottom: '1.75rem'
     },
     cardTitle: {
-      fontSize: '1.25rem',
+      fontSize: '1.1rem',
       fontWeight: '600',
-      color: '#1f2937'
+      color: '#1a1a1a'
     },
     seeDetailButton: {
-      color: '#9333ea',
-      fontSize: '0.875rem',
+      color: '#8b5cf6',
+      fontSize: '0.85rem',
       border: 'none',
       background: 'none',
       cursor: 'pointer',
-      textDecoration: 'none'
+      textDecoration: 'none',
+      fontWeight: '400'
     },
     statsGrid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(3, 1fr)',
-      gap: '1rem',
+      gap: '1.25rem',
       marginBottom: '2rem'
     },
     statCard: {
-      padding: '1rem',
-      borderRadius: '0.75rem',
-      border: '1px solid #f3f4f6'
+      padding: '1.25rem',
+      borderRadius: '12px',
+      backgroundColor: '#fafafa',
+      border: '1px solid #f0f0f0'
+    },
+    statHeader: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      marginBottom: '0.75rem'
     },
     statIconWrapper: {
-      width: '40px',
-      height: '40px',
-      borderRadius: '0.5rem',
+      width: '44px',
+      height: '44px',
+      borderRadius: '10px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: '0.75rem'
     },
     statValue: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-      color: '#111827'
+      fontSize: '1.75rem',
+      fontWeight: '700',
+      color: '#1a1a1a',
+      marginBottom: '0.25rem',
+      letterSpacing: '-0.02em'
     },
     statLabel: {
-      fontSize: '0.875rem',
-      color: '#6b7280',
-      marginTop: '0.25rem'
+      fontSize: '0.85rem',
+      color: '#737373',
+      fontWeight: '400'
     },
-    statTrend: {
-      display: 'flex',
+    statBadge: {
+      display: 'inline-flex',
       alignItems: 'center',
       gap: '0.25rem',
-      fontSize: '0.875rem'
+      padding: '0.25rem 0.5rem',
+      borderRadius: '6px',
+      fontSize: '0.8rem',
+      fontWeight: '500'
     },
     chartHeader: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: '1rem'
+      marginBottom: '1.5rem'
     },
     chartTitle: {
-      fontSize: '1.125rem',
+      fontSize: '1.1rem',
       fontWeight: '600',
-      color: '#1f2937'
+      color: '#1a1a1a'
     },
     chartButtons: {
       display: 'flex',
       gap: '0.5rem'
     },
     chartButton: {
-      padding: '0.25rem 1rem',
-      borderRadius: '9999px',
-      fontSize: '0.875rem',
+      padding: '0.4rem 1rem',
+      borderRadius: '20px',
+      fontSize: '0.85rem',
       border: 'none',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      fontWeight: '400',
+      transition: 'all 0.2s'
     },
     chartButtonActive: {
       backgroundColor: '#f3e8ff',
-      color: '#9333ea'
+      color: '#8b5cf6'
     },
     chartButtonInactive: {
       backgroundColor: 'transparent',
-      color: '#6b7280'
+      color: '#999'
     },
     progressCircle: {
       display: 'flex',
@@ -309,18 +325,19 @@ const Dashboard = () => {
       gap: '0.75rem'
     },
     progressDot: {
-      width: '12px',
-      height: '12px',
+      width: '10px',
+      height: '10px',
       borderRadius: '50%'
     },
     progressName: {
       fontSize: '0.875rem',
-      color: '#4b5563'
+      color: '#525252',
+      fontWeight: '400'
     },
     progressValue: {
       fontSize: '0.875rem',
-      fontWeight: '500',
-      color: '#111827'
+      fontWeight: '600',
+      color: '#1a1a1a'
     }
   };
 
@@ -347,7 +364,7 @@ const Dashboard = () => {
                       ...(activeNav === item ? styles.navButtonActive : styles.navButtonInactive)
                     }}
                     onMouseEnter={(e) => e.target.style.color = 'white'}
-                    onMouseLeave={(e) => e.target.style.color = activeNav === item ? 'white' : '#d8b4fe'}
+                    onMouseLeave={(e) => e.target.style.color = activeNav === item ? 'white' : 'rgba(255, 255, 255, 0.5)'}
                   >
                     {item}
                   </button>
@@ -355,11 +372,14 @@ const Dashboard = () => {
               </div>
             </div>
             <div style={styles.navRight}>
-              <input
-                type="text"
-                placeholder="Search"
-                style={styles.searchInput}
-              />
+              <div style={styles.searchWrapper}>
+                <Search size={16} color="rgba(255, 255, 255, 0.6)" style={styles.searchIcon} />
+                <input
+                  type="text"
+                  placeholder="Search"
+                  style={styles.searchInput}
+                />
+              </div>
               <button style={styles.bellButton}>
                 <Bell size={20} color="white" />
                 <span style={styles.bellDot}></span>
@@ -378,7 +398,7 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <main style={styles.main}>
-        <div style={{...styles.grid, display: 'grid', gridTemplateColumns: window.innerWidth >= 1024 ? '2fr 1fr' : '1fr'}}>
+        <div style={{display: 'grid', gridTemplateColumns: window.innerWidth >= 1024 ? '2fr 1fr' : '1fr', gap: '1.5rem'}}>
           {/* Overview Section */}
           <div>
             <div style={styles.card}>
@@ -394,27 +414,32 @@ const Dashboard = () => {
                     key={index} 
                     style={{
                       ...styles.statCard,
-                      transform: hoveredStat === index ? 'translateY(-4px)' : 'translateY(0)',
-                      boxShadow: hoveredStat === index ? '0 10px 20px rgba(0, 0, 0, 0.1)' : 'none',
-                      transition: 'all 0.3s ease',
+                      transform: hoveredStat === index ? 'translateY(-2px)' : 'translateY(0)',
+                      boxShadow: hoveredStat === index ? '0 4px 12px rgba(0, 0, 0, 0.08)' : 'none',
+                      transition: 'all 0.2s ease',
                       cursor: 'pointer'
                     }}
                     onMouseEnter={() => setHoveredStat(index)}
                     onMouseLeave={() => setHoveredStat(null)}
                   >
-                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                      <div>
-                        <div style={{...styles.statIconWrapper, backgroundColor: card.color}}>
-                          <card.icon size={20} color={card.iconColor} />
-                        </div>
-                        <p style={styles.statValue}>{card.value}</p>
-                        <p style={styles.statLabel}>{card.title}</p>
-                      </div>
-                      <div style={{...styles.statTrend, color: card.trend === 'up' ? '#10b981' : '#ef4444'}}>
-                        {card.trend === 'up' ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
+                    <div style={styles.statHeader}>
+                      <div style={{
+                        ...styles.statBadge, 
+                        backgroundColor: card.trend === 'up' ? '#dcfce7' : '#fee2e2',
+                        color: card.trend === 'up' ? '#16a34a' : '#dc2626'
+                      }}>
+                        {card.trend === 'up' ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
                         <span>{card.change}</span>
                       </div>
                     </div>
+                    <div style={{
+                      ...styles.statIconWrapper, 
+                      backgroundColor: index === 0 ? '#f3e8ff' : index === 1 ? '#fce7f3' : '#f3e8ff'
+                    }}>
+                      <card.icon size={20} color={index === 0 ? '#9333ea' : index === 1 ? '#db2777' : '#9333ea'} />
+                    </div>
+                    <p style={styles.statValue}>{card.value}</p>
+                    <p style={styles.statLabel}>{card.title}</p>
                   </div>
                 ))}
               </div>
@@ -438,74 +463,58 @@ const Dashboard = () => {
                     ))}
                   </div>
                 </div>
-                <div style={{marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '1.5rem', fontSize: '0.875rem'}}>
-                  <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                    <div style={{width: '12px', height: '12px', background: 'linear-gradient(180deg, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.05) 100%)', border: '2px solid #8b5cf6', borderRadius: '2px'}}></div>
-                    <span style={{color: '#6b7280'}}>Covered Period (Jan-Jun)</span>
-                  </div>
-                  <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                    <div style={{width: '12px', height: '12px', backgroundColor: 'white', border: '2px solid #d1d5db', borderRadius: '2px'}}></div>
-                    <span style={{color: '#6b7280'}}>Remaining Period (Jul-Dec)</span>
-                  </div>
-                </div>
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={incomeData}>
+                
+                <ResponsiveContainer width="100%" height={280}>
+                  <AreaChart data={incomeData}>
                     <defs>
                       <linearGradient id="colorGradient" x1="0" y1="0" x2="1" y2="0">
                         <stop offset="0%" stopColor="#ec4899" />
-                        <stop offset="50%" stopColor="#8b5cf6" />
+                        <stop offset="50%" stopColor="#a855f7" />
                         <stop offset="100%" stopColor="#ec4899" />
                       </linearGradient>
                       <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.3} />
-                        <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0.05} />
+                        <stop offset="0%" stopColor="#c084fc" stopOpacity={0.2} />
+                        <stop offset="100%" stopColor="#c084fc" stopOpacity={0.02} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                    <XAxis dataKey="month" stroke="#9ca3af" style={{ fontSize: '12px' }} />
-                    <YAxis stroke="#9ca3af" style={{ fontSize: '12px' }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
+                    <XAxis 
+                      dataKey="month" 
+                      stroke="#d1d5db" 
+                      style={{ fontSize: '11px' }} 
+                      axisLine={false}
+                      tickLine={false}
+                      dy={10}
+                    />
+                    <YAxis 
+                      stroke="#d1d5db" 
+                      style={{ fontSize: '11px' }} 
+                      axisLine={false}
+                      tickLine={false}
+                      dx={-10}
+                    />
                     <Tooltip 
                       contentStyle={{ 
-                        backgroundColor: '#1f2937', 
+                        backgroundColor: '#18181b', 
                         border: 'none', 
                         borderRadius: '8px',
-                        color: 'white'
+                        color: 'white',
+                        fontSize: '12px',
+                        padding: '8px 12px'
                       }}
-                      formatter={(value) => [`${value}`, 'Income']}
+                      formatter={(value) => [`$${value.toLocaleString()}`, 'Income']}
+                      labelStyle={{ color: '#a1a1aa' }}
                     />
-                    <defs>
-                      <pattern id="stripePattern" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
-                        <rect width="4" height="8" fill="#e9d5ff" />
-                      </pattern>
-                    </defs>
-                    {/* Shaded area for covered portion */}
-                    <rect 
-                      x="0" 
-                      y="0" 
-                      width="48%" 
-                      height="100%" 
-                      fill="url(#areaGradient)" 
-                      opacity="0.5"
-                    />
-                    {/* Vertical divider line */}
-                    <line 
-                      x1="48%" 
-                      y1="0" 
-                      x2="48%" 
-                      y2="100%" 
-                      stroke="#8b5cf6" 
-                      strokeWidth="2" 
-                      strokeDasharray="5,5"
-                    />
-                    <Line 
-                      type="monotone" 
-                      dataKey="value" 
-                      stroke="url(#colorGradient)" 
+                    <Area
+                      type="monotone"
+                      dataKey="value"
+                      stroke="url(#colorGradient)"
                       strokeWidth={3}
-                      dot={{ fill: '#8b5cf6', r: 4 }}
-                      activeDot={{ r: 8, fill: '#ec4899', stroke: '#fff', strokeWidth: 2 }}
+                      fill="url(#areaGradient)"
+                      dot={false}
+                      activeDot={{ r: 5, fill: '#ec4899', stroke: '#fff', strokeWidth: 2 }}
                     />
-                  </LineChart>
+                  </AreaChart>
                 </ResponsiveContainer>
               </div>
             </div>
@@ -521,10 +530,10 @@ const Dashboard = () => {
 
               {/* Circular Progress */}
               <div style={styles.progressCircle}>
-                <div style={{position: 'relative', width: '192px', height: '192px'}}>
+                <div style={{position: 'relative', width: '200px', height: '200px'}}>
                   <svg style={{transform: 'rotate(-90deg)'}} viewBox="0 0 200 200">
                     {progressData.map((item, index) => {
-                      const radius = 90 - (index * 15);
+                      const radius = 88 - (index * 16);
                       const circumference = 2 * Math.PI * radius;
                       const offset = circumference - (item.progress / 100) * circumference;
                       return (
@@ -534,15 +543,15 @@ const Dashboard = () => {
                           cy="100"
                           r={radius}
                           stroke={item.color}
-                          strokeWidth="12"
+                          strokeWidth="10"
                           fill="none"
                           strokeDasharray={circumference}
                           strokeDashoffset={offset}
                           strokeLinecap="round"
+                          opacity={0.9}
                         />
                       );
                     })}
-                    <circle cx="100" cy="100" r="30" fill="white" />
                   </svg>
                 </div>
               </div>
