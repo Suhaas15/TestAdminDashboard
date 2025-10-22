@@ -4,13 +4,16 @@ import { TrendingUp, TrendingDown } from 'lucide-react';
 import cardStyles from '../styles/cardStyles';
 import overviewStyles from '../styles/overviewStyles';
 
-const Overview = ({ statsCards, incomeData }) => {
+const Overview = ({ statsCards, incomeData, viewportWidth = 1024 }) => {
   const [activeFilter, setActiveFilter] = useState('All fields');
   const [hoveredStat, setHoveredStat] = useState(null);
   const [chartData, setChartData] = useState(() =>
     incomeData.map((item) => ({ ...item, value: 0 }))
   );
   const animationRef = useRef(null);
+  const statsGridColumns =
+    viewportWidth >= 1024 ? 'repeat(3, minmax(0, 1fr))' : viewportWidth >= 640 ? 'repeat(2, minmax(0, 1fr))' : 'repeat(1, minmax(0, 1fr))';
+  const isCompactHeader = viewportWidth < 640;
 
   const runAnimation = useCallback(() => {
     setChartData(incomeData.map((item) => ({ ...item, value: 0 })));
@@ -43,7 +46,12 @@ const Overview = ({ statsCards, incomeData }) => {
         <button style={cardStyles.seeDetailButton}>See detail</button>
       </div>
 
-      <div style={overviewStyles.statsGrid}>
+      <div
+        style={{
+          ...overviewStyles.statsGrid,
+          gridTemplateColumns: statsGridColumns
+        }}
+      >
         {statsCards.map((card, index) => (
           <div
             key={card.title}
@@ -84,9 +92,23 @@ const Overview = ({ statsCards, incomeData }) => {
       </div>
 
       <div>
-        <div style={overviewStyles.chartHeader}>
+        <div
+          style={{
+            ...overviewStyles.chartHeader,
+            flexDirection: isCompactHeader ? 'column' : 'row',
+            alignItems: isCompactHeader ? 'flex-start' : 'center',
+            gap: isCompactHeader ? '0.75rem' : '0'
+          }}
+        >
           <h3 style={overviewStyles.chartTitle}>Income</h3>
-          <div style={overviewStyles.chartButtons}>
+          <div
+            style={{
+              ...overviewStyles.chartButtons,
+              width: isCompactHeader ? '100%' : 'auto',
+              justifyContent: isCompactHeader ? 'space-between' : 'flex-end',
+              flexWrap: isCompactHeader ? 'wrap' : 'nowrap'
+            }}
+          >
             {['All fields', 'Service', 'Product'].map((filter) => (
               <button
                 key={filter}
